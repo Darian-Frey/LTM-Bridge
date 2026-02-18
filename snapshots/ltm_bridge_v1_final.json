@@ -1,0 +1,21 @@
+{
+  "v": "1.2",
+  "ALN": {"V1": ["architecture", "benchmark"], "V2": ["CTX", "OBJ", "CON", "PAY"], "V3": ["SV2", "ST_H"]},
+  "CTX": "LTM-Bridge and Zero-Loss Protocol fully verified via Chaos Stress Test.",
+  "OBJ": "Maintain the bridge for future high-complexity engineering tasks.",
+  "CON": ["Logic-First", "State-Aware", "Risk-Aware"],
+  "MR": [
+    { "t": "gh", "id": "LTM-Bridge-Core", "url": "https://github.com/Darian-Frey/LTM-Bridge" },
+    { "t": "kp", "id": "PROJECTS_AND_STATUS" }
+  ],
+  "UV": [
+    ["uv_monitor", "Monitor GitHub for SLT v1.3 proposals", "p"],
+    ["uv_extend", "Apply LTM-Bridge to the Raspberry Pi weather app project", "p"]
+  ],
+  "RSK": [],
+  "DEP": [
+    { "id": "d_slt", "comp": "bootstrap.json", "ver": "1.2", "role": "Core Symbology" }
+  ],
+  "PAY": { "phase": "RELEASE_STABLE", "pct": 100, "bench_score": "10/10" },
+  "ST_H": "FINAL_V1_STABLE_02182026"
+}
