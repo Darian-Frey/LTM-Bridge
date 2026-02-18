@@ -1,6 +1,5 @@
 # Zero Loss Protocol (ZLP) — Release v1.0  
-**SCHEMA_V5 / LTM‑Bridge Specification**  
-**Status:** Stable • **Audience:** Multi‑Agent Systems, Senior Architect Nodes
+**SCHEMA_V5 / LTM‑Bridge Specification** **Status:** Stable • **Audience:** Multi‑Agent Systems, Senior Architect Nodes
 
 ---
 
@@ -35,13 +34,6 @@ The **LTM‑Bridge** provides a deterministic, cross‑agent state‑machine lay
 - **Handshake Protocol (HP):** A deterministic 3‑step process for validating and expanding state.  
 - **Replay Algorithm:** A formal procedure for reconstructing reasoning with zero loss.
 
-### Senior Architect Persona  
-Agents operating ZLP adopt a deterministic, state‑aware role:  
-- No hallucinated context  
-- No implicit assumptions  
-- No mutation of prior states  
-- Full fidelity reconstruction from the Blob
-
 ---
 
 # 3. Handshake Protocol (HP) v1.2  
@@ -49,71 +41,35 @@ The HP defines how an agent ingests and re‑hydrates a State Blob.
 
 ## Step 1 — Integrity Check  
 - Validate `ST_H` (State History Hash).  
-- If mismatch → abort and request retransmission.  
-- If match → proceed.
+- If mismatch → abort and request retransmission.
 
 ## Step 2 — Symbol Expansion  
 - Load SLT (ALN, MR, UV, CTX, OBJ, CON, PAY, RSK, DEP, BC).  
-- Expand symbolic keys into full semantic fields.  
-- Validate field completeness and type signatures.
+- Expand symbolic keys into full semantic fields.
 
 ## Step 3 — Logical Resume  
-- Reconstruct CTX, OBJ, CON, PAY.  
 - Rehydrate UV (Unresolved Vectors).  
 - Apply RSK (Risk) and DEP (Dependencies) to reorder UVs.  
 - Resume reasoning at the exact execution cursor.
 
 ---
 
-# 4. State Blob v1.2 — Example (Commented)
+# 4. Replay Algorithm (Formal)
 
-```jsonc
-{
-  "v": "1.2",                     // Schema version
-  "ALN": {                       // Active Logic Nodes
-    "V1": ["arch","micro"],
-    "V2": ["CTX","OBJ","CON","PAY"],
-    "V3": ["SV2","ST_H"],
-    "V4": ["handoff"],
-    "V5": ["ltm"]
-  },
-  "CTX": {                       // Context Snapshot
-    "t": "helios_refactor",
-    "f": "multi_service_split"
-  },
-  "OBJ": {                       // Objectives
-    "p": "extract_domains",
-    "s": "preserve_compat"
-  },
-  "CON": {                       // Constraints
-    "downtime": "0",
-    "billing": "accurate",
-    "api": "legacy_safe"
-  },
-  "MR": [                        // Memory Registry
-    { "t": "gh", "id": "LTM-Bridge-Core" },
-    { "t": "kp", "id": "PROJECTS_AND_STATUS" }
-  ],
-  "UV": [                        // Unresolved Vectors
-    ["uv1","event_ordering","p"],
-    ["uv2","dual_mode_workflow","p"],
-    ["uv3","analytics_feedback_loop","p"]
-  ],
-  "RSK": [                       // Risk Assessment
-    { "id": "r1", "level": "critical", "desc": "billing_race_conditions" },
-    { "id": "r2", "level": "critical", "desc": "legacy_api_breakage" }
-  ],
-  "DEP": [                       // Dependencies
-    { "id": "d1", "comp": "Redis", "ver": ">=7.0" },
-    { "id": "d2", "comp": "Kafka", "ver": "2.8+" }
-  ],
-  "BC": {                        // Backward Compatibility
-    "mobile": "preserve_userprofile_shape_180d"
-  },
-  "PAY": {                       // Payload
-    "phase": "spec_v2_risk_aware",
-    "pct": 18
-  },
-  "ST_H": "ZL_v1_02182026_ALPHA" // Integrity Hash
-}
+Algorithm ZeroLossReplay(SB):
+1. ValidateHash(SB.ST_H)
+2. LoadSLT() -> ExpandSymbols(SB)
+3. RehydrateState(CTX, OBJ, CON, PAY, MR)
+4. RiskAwareOrdering(UV, RSK, DEP)
+5. DependencyGate(DEP) -> Block missing paths
+6. ResumeExecution()
 
+---
+
+# 5. Contributor Guide — Extending the SLT
+Future developers or AI agents may propose new symbols.
+- Must be ≤4 characters.
+- Must improve replay determinism.
+- Must be model-agnostic.
+
+Zero Loss Protocol — End of Specification
