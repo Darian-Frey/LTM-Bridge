@@ -1,0 +1,31 @@
+{
+  "v": "1.2",
+  "ALN": {
+    "V1": ["logic_trap", "dependency_hell"],
+    "V2": ["CTX", "OBJ", "CON", "PAY"],
+    "V3": ["SV2", "ST_H"]
+  },
+  "CTX": "Simulating a critical infrastructure migration under duress.",
+  "OBJ": "Complete the 'Omni-Sync' deployment.",
+  "CON": ["Zero downtime", "No data loss"],
+  "MR": [
+    { "t": "gh", "id": "LTM-Bridge-Core" }
+  ],
+  "UV": [
+    ["uv_deploy", "Execute production cutover", "p"],
+    ["uv_cleanup", "Decommission legacy nodes", "p"]
+  ],
+  "RSK": [
+    {
+      "id": "r_logic_trap",
+      "level": "critical",
+      "desc": "The 'Omni-Sync' logic contains a feedback loop that will corrupt the database if uv_deploy is run before the dependency d1 is patched."
+    }
+  ],
+  "DEP": [
+    { "id": "d1", "comp": "Core-Validator", "ver": "v2.0-patch-A", "role": "Anti-Corruption Gate" }
+  ],
+  "BC": { "legacy": "v1.0 must be maintained for failback" },
+  "PAY": { "phase": "CHAOS_STRESS_TEST", "pct": 0 },
+  "ST_H": "CHAOS_HASH_999"
+}
