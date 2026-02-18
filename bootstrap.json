@@ -1,6 +1,6 @@
 {
   "protocol": "SCHEMA_V5",
-  "version": "1.1",
+  "version": "1.2",
   "symbolic_lookup_table": {
     "ALN": "Active_Logic_Nodes",
     "MR": "Memory_Registry",
@@ -10,12 +10,17 @@
     "CON": "Constraint",
     "PAY": "Payload",
     "ST_H": "State_History_Hash",
-    "HP": "Handshake_Protocol"
+    "HP": "Handshake_Protocol",
+    "DEP": "Dependencies",
+    "RSK": "Risk_Assessment",
+    "BC": "Backward_Compatibility"
   },
   "handshake_logic": [
     "1. Integrity Check via ST_H",
     "2. Symbol Expansion via SLT",
-    "3. Logical Resume from UV"
+    "3. Risk Audit (RSK)",
+    "4. Dependency Check (DEP)",
+    "5. Logical Resume from UV"
   ],
-  "recovery_protocol": "RP_01_Deterministic_Recon"
+  "recovery_protocol": "RP_02_Risk_Aware_Recon"
 }
