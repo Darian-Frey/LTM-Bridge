@@ -1,0 +1,21 @@
+{
+  "protocol": "SCHEMA_V5",
+  "version": "1.1",
+  "symbolic_lookup_table": {
+    "ALN": "Active_Logic_Nodes",
+    "MR": "Memory_Registry",
+    "UV": "Unresolved_Vectors",
+    "CTX": "Context",
+    "OBJ": "Objective",
+    "CON": "Constraint",
+    "PAY": "Payload",
+    "ST_H": "State_History_Hash",
+    "HP": "Handshake_Protocol"
+  },
+  "handshake_logic": [
+    "1. Integrity Check via ST_H",
+    "2. Symbol Expansion via SLT",
+    "3. Logical Resume from UV"
+  ],
+  "recovery_protocol": "RP_01_Deterministic_Recon"
+}
